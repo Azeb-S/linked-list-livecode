@@ -1,0 +1,8 @@
+node{value, next}
+current = head
+count = 0
+
+while (current != null):
+  count++
+  curreent = current.next
+return count 
