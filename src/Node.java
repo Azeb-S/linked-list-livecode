@@ -6,6 +6,7 @@ public class Node {
  public Node(char value, Node next) {
   this.value = value;
   this.next = next;
+
  }
 
 }
