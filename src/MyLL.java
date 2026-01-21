@@ -1,28 +1,29 @@
-public class MyLL {
+public class MyLL<T> {
 
- private class Node {
+ private class Node<E> {
+  public E value;
+  public Node<E> next;
+  public Node<E> prev;
 
-  public char value;
-  public Node next;
-
-  public Node(char value, Node next) {
-
+  public Node(E value, Node<E> next) {
    this.value = value;
    this.next = next;
+   this.prev = null;
 
   }
 
  }
 
- private Node head;
+ private Node<T> head;
 
  public MyLL() {
   head = null;
  }
 
- public void printList(Node start) {
+ public void printList() {
 
-  Node current = start;
+  Node<T> current = head;
+
   while (current != null) {
    System.out.println(current.value);
    current = current.next;
@@ -30,13 +31,13 @@ public class MyLL {
 
  }
 
- public boolean contains(char tofind) {
+ public boolean contains(T tofind) {
 
-  Node current = head;
+  Node<T> current = head;
 
   while (current != null) {
 
-   if (current.value == tofind) {
+   if (current.value.equals(tofind)) {
     return true;
    }
    current = head.next;
@@ -45,24 +46,59 @@ public class MyLL {
   return false;
  }
 
- // remove the first node that has toremove
- public char remove(char toRemove) {
+ public void addToBack(T toAdd) {
 
-  if (head.value == toRemove) {
+  Node<T> newNode = new Node<T>(toAdd, null);
+
+  if (head == null) {
+   head = newNode;
+   return;
+  }
+  Node<T> current = head;
+  while (current.next != null) {
+   current = current.next;
+  }
+  current.next = newNode;
+  newNode.prev = current;
+
+ }
+
+ // remove the first node that has toremove
+ public T remove(T toRemove) {
+
+  if (head.value.equals(toRemove)) {
    head = head.next;
    return toRemove;
 
   }
-  Node current = head;
+  Node<T> current = head;
   while (current.next != null) {
-   if (current.next.value == toRemove) {
+   if (current.next.value.equals(toRemove)) {
     current.next = current.next.next;
     return toRemove;
    }
    current = current.next;
 
   }
-  return '\0';
+  return null;
+ }
+
+ public void printBackWards() {
+
+  Node<T> current = head;
+
+  while (current.next != null) {
+   current = current.next;
+  }
+  // going backwards
+
+  while (current != null) {
+
+   System.out.println(current.value);
+   current = current.prev;
+
+  }
+
  }
 
 }
